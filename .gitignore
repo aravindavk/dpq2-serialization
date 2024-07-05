@@ -1,0 +1,16 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/dpq2-serialization
+dpq2-serialization.so
+dpq2-serialization.dylib
+dpq2-serialization.dll
+dpq2-serialization.a
+dpq2-serialization.lib
+dpq2-serialization-test-*
+*.exe
+*.pdb
+*.o
+*.obj
+*.lst

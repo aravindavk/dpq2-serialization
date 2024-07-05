@@ -1,0 +1,7 @@
+name "dpq2-serialization"
+description "Dpq2 Row to D struct serializer"
+authors "Aravinda VK <mail@aravindavk.in>"
+copyright "Copyright © 2024, Aravinda VK <mail@aravindavk.in>"
+license "BSL-1.0"
+dependency "dpq2" version="~>1.1.7"
+targetType "library"
