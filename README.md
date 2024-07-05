@@ -65,7 +65,7 @@ auto user = rs[0].to!User;
 /+ dub.sdl:
 dependency "dpq2" version="~>1.1.7"
 dependency "handy-httpd" version="~>8.4.0"
-dependency "dpq2-serialization" path="../dpq2-serialization"
+dependency "dpq2-serialization" version="~>0.1.0"
 +/
 import std.process;
 import std.algorithm;
@@ -121,7 +121,7 @@ void main()
 /+ dub.sdl:
 dependency "vibe-http" version="~>1.1.0"
 dependency "dpq2" version="~>1.1.7"
-dependency "dpq2-serialization" path="../dpq2-serialization"
+dependency "dpq2-serialization" version="~>0.1.0"
 +/
 import std.range;
 import std.process;
@@ -183,7 +183,7 @@ void main()
 /+ dub.sdl:
 dependency "serverino" version="~>0.7.9"
 dependency "dpq2" version="~>1.1.7"
-dependency "dpq2-serialization" path="../dpq2-serialization"
+dependency "dpq2-serialization" version="~>0.1.0"
 +/
 import std.range;
 import std.process;
