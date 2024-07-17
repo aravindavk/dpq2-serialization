@@ -53,7 +53,7 @@ QueryParams qps;
 qps.sqlCommand = query;
 qps.argsVariadic(userId);
 auto rs = conn.execParams(qps);
-auto user = rs[0].to!User;
+auto user = rs[0].deserializeTo!User;
 ```
 
 ## With Web frameworks
@@ -101,7 +101,7 @@ void listUsersHandler(ref HttpRequestContext ctx)
     auto rs = conn.execParams(qps);
     User[] users;
     foreach(idx; 0..rs.length)
-        users ~= rs[idx].to!User;
+        users ~= rs[idx].deserializeTo!User;
 
     ctx.response.writeBodyString(serializeToJsonString(users));
 }
@@ -159,7 +159,7 @@ void listUsersHandler(HTTPServerRequest req, HTTPServerResponse res)
     auto rs = conn.execParams(qps);
     User[] users;
     foreach(idx; 0..rs.length)
-        users ~= rs[idx].to!User;
+        users ~= rs[idx].deserializeTo!User;
 
     res.writeJsonBody(users);
 }
@@ -218,7 +218,7 @@ void listUsersHandler(Request req, Output res)
     auto rs = conn.execParams(qps);
     User[] users;
     foreach(idx; 0..rs.length)
-        users ~= rs[idx].to!User;
+        users ~= rs[idx].deserializeTo!User;
  
     res.write(serializeToJsonString(users));
 }

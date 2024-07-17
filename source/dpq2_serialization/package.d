@@ -15,17 +15,28 @@ struct pgColumn
     string name;
 }
 
+struct pgType
+{
+    string name;
+}
+
 string columnName(T, string member)()
 {
-    foreach(attr; __traits(getAttributes, __traits(getMember, T, member)))
-    {
-        if (is(typeof(attr) == pgColumn))
-            return attr.name;
-    }
+    static if (getUDAs!(__traits(getMember, T, member), pgColumn).length > 0)
+        return getUDAs!(__traits(getMember, T, member), pgColumn)[0].name;
+
     return member;
 }
 
-T to(T)(Row data)
+string columnType(T, string member)()
+{
+    static if (getUDAs!(__traits(getMember, T, member), pgType).length > 0)
+        return "PG" ~ getUDAs!(__traits(getMember, T, member), pgType)[0].name;
+
+    return typeof(__traits(getMember, T, member)).stringof;
+}
+
+T deserializeTo(T)(Row data)
 {
     static if (is(T == struct))
         T res;
@@ -44,7 +55,7 @@ T to(T)(Row data)
                 enum name = columnName!(T, memberName);
 
                 // Convert the PG type to this type
-                enum type = typeof(__traits(getMember, res, memberName)).stringof;
+                enum type = columnType!(T, memberName);
 
                 // Example conversion:
                 // if (data.columnExists("column_name") && !data["column_name"].isNull)
