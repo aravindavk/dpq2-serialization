@@ -62,7 +62,7 @@ T deserializeTo(T)(Row data)
                 //     res.column_name = data["column_name"].as!<column_type>
                 // if (data.columnExists(\"" ~ name ~ "\") && !data[\"" ~ name ~ "\"].isNull)
                 mixin("
-                if (data.columnExists(\"" ~ name ~ "\"))
+                if (data.columnExists(\"" ~ name ~ "\") && !data[\"" ~ name ~ "\"].isNull)
                     res." ~ memberName ~ " = data[\"" ~ name ~ "\"].as!(" ~ type ~ ");
                 ");
             }
