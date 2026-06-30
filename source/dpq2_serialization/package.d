@@ -20,6 +20,16 @@ struct pgType
     string name;
 }
 
+struct pgIgnore{}
+
+bool skipColumn(T, string member)()
+{
+    static if (getUDAs!(__traits(getMember, T, member), pgIgnore).length > 0)
+        return true;
+
+    return false;
+}
+
 string columnName(T, string member)()
 {
     static if (getUDAs!(__traits(getMember, T, member), pgColumn).length > 0)
@@ -48,7 +58,7 @@ T deserializeTo(T)(Row data)
         // New scope to avoid already defined errors
         // when used variables during compile time
         {
-            static if (memberName != "Monitor" && !isSomeFunction!(__traits(getMember, res, memberName)))
+            static if (memberName != "Monitor" && !isSomeFunction!(__traits(getMember, res, memberName)) && !skipColumn!(T, memberName))
             {
                 // PG column name same as memberName unless @pgColumn
                 // attribute added to the member.
